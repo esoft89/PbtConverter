@@ -1,0 +1,1 @@
+CALL pr_start_import_log()  $$ 

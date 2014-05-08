@@ -1,0 +1,30 @@
+DROP TABLE IF EXISTS `tmp_cmd_gen`$$
+DROP TABLE IF EXISTS `tmp_cmd_det`$$
+DROP TABLE IF EXISTS `tmp_order_detail_tax`$$
+DROP TABLE IF EXISTS `tmp_order_invoice_tax`$$
+DROP TABLE IF EXISTS `tmp_attribute_group`$$
+DROP TABLE IF EXISTS `tmp_attribute_list`$$
+DROP TABLE IF EXISTS `tmp_attribute_name`$$
+DROP TABLE IF EXISTS `tmp_attribute`$$
+DROP TABLE IF EXISTS `tmp_product_attribute`$$
+DROP TABLE IF EXISTS `tmp_cart`$$
+DROP TABLE IF EXISTS `tmp_product_sale`$$
+DROP TABLE IF EXISTS `tmp_cart_product`$$
+DROP TABLE IF EXISTS `tmp_product` $$
+DROP TABLE IF EXISTS `tmp_product_lang`$$ 
+DROP TABLE IF EXISTS `tmp_order_detail`$$
+DROP TABLE IF EXISTS `tmp_order_history`$$
+DROP TABLE IF EXISTS `tmp_order_payment`$$
+DROP TABLE IF EXISTS `tmp_order_carrier`$$
+DROP TABLE IF EXISTS `tmp_order_invoice`$$
+DROP TABLE IF EXISTS `tmp_orders_ins`$$
+DROP TABLE IF EXISTS `tmp_orders`$$
+DROP TABLE IF EXISTS `tmp_order_product_price`$$
+DROP TABLE IF EXISTS `tmp_address`$$
+DROP TABLE IF EXISTS `tmp_customer_ins`$$
+DROP TABLE IF EXISTS `tmp_customer`$$
+DROP TABLE IF EXISTS `tmp_transco_statuts`$$
+DROP TABLE IF EXISTS `tmp_import_table_list`$$
+DROP TABLE IF EXISTS `tmp_import_log`$$
+DROP TABLE IF EXISTS `tmp_import_log_detail`$$
+

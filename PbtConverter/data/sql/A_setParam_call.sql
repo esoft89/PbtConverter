@@ -1,0 +1,1 @@
+INSERT INTO `tmp_param`(`name`, `value` ) VALUES ('%VARNAME%','%VARVALUE%') $$ 

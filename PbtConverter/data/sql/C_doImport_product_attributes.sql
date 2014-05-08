@@ -1,0 +1,1 @@
+CALL pr_import_product_attributes()  $$ 

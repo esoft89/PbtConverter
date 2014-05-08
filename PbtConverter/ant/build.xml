@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="make_dist"
+	name="Create Runnable Jar for Project PbtConverter with libraries in sub-folder">
+	<target name="init">
+		<property name="dist" location="dist/PbtConverter" relative="false" basedir=".." />
+		<property name="bin" location="../bin" relative="false" basedir=".." />
+		<property name="src" location="../src" relative="false" basedir=".." />
+		<property name="conf" location="../conf" relative="false" basedir=".." />
+		<property name="data" location="../data" relative="false" basedir=".." />
+		<property name="lib" location="../lib" relative="false" basedir=".." />
+	</target>
+
+	<target name="clean" depends="init" >
+		<delete failonerror="false" >
+			<fileset dir="${dist}" includes="**/*" />
+		</delete>
+	</target>
+
+	<target name="copy" depends="init" >
+			<copy todir="${dist}/bin">
+				<fileset dir="${conf}">
+				    <include name="*.bat" />
+				</fileset>
+			</copy>
+	        <copy todir="${dist}/conf">
+				<fileset dir="${conf}">
+				    <include name="*.properties" />
+				    <include name="*.conf" />
+				</fileset>
+			</copy>
+			<copy todir="${dist}/lib">
+				<fileset dir="${lib}">
+					<include name="*.jar" />
+				</fileset>
+			</copy>
+			<copy todir="${dist}/data/input">
+				<fileset dir="${data}/input">
+					<include name="*.csv" />
+				</fileset>
+			</copy>
+			<copy todir="${dist}/data/sql">
+				<fileset dir="${data}/sql">
+					<include name="*.sql" />
+				</fileset>
+			</copy>
+		    <mkdir dir="${dist}/data/output"/>
+	</target>
+	
+	<target name="make_dist" depends="clean,copy">
+		<jar destfile="${dist}/lib/PbtConverter.jar">
+			<manifest>
+				<attribute name="Main-Class" value="com.esoft.PbtConverter" />
+				<attribute name="Class-Path" value="." />
+			</manifest>
+			<fileset dir="${bin}" />
+		</jar>
+	</target>
+
+</project>
