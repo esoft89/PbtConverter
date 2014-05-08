@@ -1,0 +1,1 @@
+Ce répertoire contient les fichiers gen et det générés pour un import manuel. 
