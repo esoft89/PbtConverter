@@ -73,8 +73,12 @@ public class PbtConverter {
 					File directory = new File (".");
 					Properties prop = load(directory.getAbsolutePath().concat(CONF_PROPERTIES));
 					Connection conn = getConnection(prop);
-					String dirSql = prop.getProperty(DIR_SQL);
-					unInstallSqlFiles(conn,directory.getCanonicalPath(), new File(dirSql), prop);
+					if (is_installed(conn)) { 
+						String dirSql = prop.getProperty(DIR_SQL);
+						unInstallSqlFiles(conn,directory.getCanonicalPath(), new File(dirSql), prop);
+					} else { 
+						System.out.println("PBtConverter n'est pas installe. desinstallation impossible");
+					}
 				} catch (FileNotFoundException e) {
 					System.out.println("Erreur lors de la lecture ou d'ecriture de fichier");
 					e.printStackTrace();
@@ -95,10 +99,13 @@ public class PbtConverter {
 					File directory = new File (".");
 					Properties prop = load(directory.getAbsolutePath().concat(CONF_PROPERTIES));
 					Connection conn = getConnection(prop);
-					String dirIn = prop.getProperty(DIR_IN);
-					String dirSql = prop.getProperty(DIR_SQL);
-					doImport(conn,directory.getCanonicalPath(), new File(dirIn),new File(dirSql), prop);
-
+					if (is_installed(conn)) { 
+						String dirIn = prop.getProperty(DIR_IN);
+						String dirSql = prop.getProperty(DIR_SQL);
+						doImport(conn,directory.getCanonicalPath(), new File(dirIn),new File(dirSql), prop);
+					} else { 
+						System.out.println("PBtConverter n'est pas installe. import impossible");
+					}
 				} catch (FileNotFoundException e) {
 					System.out.println("Erreur lors de la lecture ou d'ecriture de fichier");
 					e.printStackTrace();
@@ -222,6 +229,17 @@ public class PbtConverter {
 			} 
 		}
 	}
+	
+	private static boolean is_installed (Connection conn ) throws SQLException { 
+		DatabaseMetaData dbm = (DatabaseMetaData) conn.getMetaData();
+		ResultSet tables = dbm.getTables(null, null, "tmp_cmd_gen", null);
+		if (tables.next()) {
+		  return true;
+		}
+		else {
+          return false;
+		}
+	}	
 
 	private static void doSqlParamFiles(Connection conn,String mainDir, File repertoire, Properties prop, String partFileName) throws ClassNotFoundException, IOException, SQLException{ 
 		String [] listefichiers; 
@@ -387,10 +405,18 @@ public class PbtConverter {
 			for (int j = 0; j < values.length; j++) {
 				switch (headerType[j]) { 
 				case "INT": 
-					ps.setInt(j+1, Integer.valueOf(values[j].replaceAll(" ","").replaceAll("0,00","0")));
+					values[j] = values[j].replaceAll("0,00","0");
+					if (values[j].isEmpty()) { 
+						values[j] = "0";
+					}
+					ps.setInt(j+1, Integer.valueOf(values[j]));
 					break;
 				case "BIGINT":
-					ps.setLong(j+1, Long.valueOf(values[j].replaceAll(" ","").replaceAll("0,00","0")));
+					values[j] = values[j].replaceAll("0,00","0");
+					if (values[j].isEmpty()) { 
+						values[j] = "0";
+					}
+					ps.setLong(j+1, Long.valueOf(values[j]));
 					break;
 				default:
 					values[j] = values[j].trim();
